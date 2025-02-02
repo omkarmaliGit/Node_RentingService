@@ -76,6 +76,10 @@ header nav > button:hover {
   color: #e35a3c;
 }
 
+.callButton {
+  text-decoration: none;
+}
+
 /* Footer */
 #topFooter {
   background-color: #393939;
