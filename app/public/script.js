@@ -162,9 +162,50 @@ function displayLocations() {
 const spacesButton = document.getElementById("spacesBtn");
 spacesButton.addEventListener("click", displaySpaces);
 
-function displaySpaces() {
+async function displaySpaces() {
   const mainContent = document.getElementById("main-content");
-  mainContent.innerHTML = `
+
+  try {
+    // Fetch product data from the backend
+    const response = await fetch("/space");
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const spacesJson = await response.json();
+
+    const spaces = spacesJson.data;
+
+    const spaceHTML = spaces
+      .map(
+        (space) => `
+        <div class="center-card">
+            <img src="${space.imgLink}" alt="${space.spaceName} Img" />
+            <div class="card-content">
+              <h2>${space.spaceName}</h2>
+              <p>${space.address}</p>
+              <div class="info">
+                <p>
+                  <strong>Area:</strong>
+                  <span class="highlight">${space.area} sq. Ft</span>
+                </p>
+                <p><strong>Grade:</strong> <span class="highlight">${space.grade}</span></p>
+              </div>
+              <p>Common Amenities for Tenants</p>
+              <ul class="amenities">
+                <li><span>🏥</span> Medical Room</li>
+                <li><span>🏋️</span> Gym</li>
+                <li><span>🍴</span> Pantry Area</li>
+                <li><span>🎮</span> Leisure Zone</li>
+              </ul>
+            </div>
+          </div>
+    `
+      )
+      .join("");
+
+    mainContent.innerHTML = `
 <section class="center-section">
         <div class="center-header">
           <h1>Our Spaces</h1>
@@ -175,177 +216,15 @@ function displaySpaces() {
           <p>We like to be transparent.</p>
         </div>
         <div class="center-container">
-          <div class="center-card">
-            <img src="images/space1.jpeg" alt="Western Aqua" />
-            <div class="card-content">
-              <h2>Western Aqua</h2>
-              <p>Whitefields, HITEC City</p>
-              <div class="info">
-                <p>
-                  <strong>Area:</strong>
-                  <span class="highlight">251317 sq. Ft</span>
-                </p>
-                <p><strong>Grade:</strong> <span class="highlight">A</span></p>
-              </div>
-              <p>Common Amenities for Tenants</p>
-              <ul class="amenities">
-                <li><span>🏥</span> Medical Room</li>
-                <li><span>🏋️</span> Gym</li>
-                <li><span>🍴</span> Pantry Area</li>
-                <li><span>🎮</span> Leisure Zone</li>
-              </ul>
-            </div>
-          </div>
-          <div class="center-card">
-            <img src="images/space2.jpeg" alt="Aurobindo Galaxy" />
-            <div class="card-content">
-              <h2>Aurobindo Galaxy</h2>
-              <p>HITEC City, Hyderabad, Telangana</p>
-              <div class="info">
-                <p>
-                  <strong>Area:</strong>
-                  <span class="highlight">180000 sq. Ft</span>
-                </p>
-                <p><strong>Grade:</strong> <span class="highlight">B+</span></p>
-              </div>
-              <p>Common Amenities for Tenants</p>
-              <ul class="amenities">
-                <li><span>🏥</span> Medical Room</li>
-                <li><span>🏋️</span> Gym</li>
-                <li><span>🍴</span> Pantry Area</li>
-                <li><span>🎮</span> Leisure Zone</li>
-              </ul>
-            </div>
-          </div>
-          <div class="center-card">
-            <img src="images/space3.jpeg" alt="Western Aqua" />
-            <div class="card-content">
-              <h2>Western Aqua</h2>
-              <p>Whitefields, HITEC City</p>
-              <div class="info">
-                <p>
-                  <strong>Area:</strong>
-                  <span class="highlight">251317 sq. Ft</span>
-                </p>
-                <p><strong>Grade:</strong> <span class="highlight">A</span></p>
-              </div>
-              <p>Common Amenities for Tenants</p>
-              <ul class="amenities">
-                <li><span>🏥</span> Medical Room</li>
-                <li><span>🏋️</span> Gym</li>
-                <li><span>🍴</span> Pantry Area</li>
-                <li><span>🎮</span> Leisure Zone</li>
-              </ul>
-            </div>
-          </div>
-          <div class="center-card">
-            <img src="images/space4.jpeg" alt="Aurobindo Galaxy" />
-            <div class="card-content">
-              <h2>Aurobindo Galaxy</h2>
-              <p>HITEC City, Hyderabad, Telangana</p>
-              <div class="info">
-                <p>
-                  <strong>Area:</strong>
-                  <span class="highlight">180000 sq. Ft</span>
-                </p>
-                <p><strong>Grade:</strong> <span class="highlight">B</span></p>
-              </div>
-              <p>Common Amenities for Tenants</p>
-              <ul class="amenities">
-                <li><span>🏥</span> Medical Room</li>
-                <li><span>🏋️</span> Gym</li>
-                <li><span>🍴</span> Pantry Area</li>
-                <li><span>🎮</span> Leisure Zone</li>
-              </ul>
-            </div>
-          </div>
-          <div class="center-card">
-            <img src="images/space5.jpeg" alt="Western Aqua" />
-            <div class="card-content">
-              <h2>Western Aqua</h2>
-              <p>Whitefields, HITEC City</p>
-              <div class="info">
-                <p>
-                  <strong>Area:</strong>
-                  <span class="highlight">251317 sq. Ft</span>
-                </p>
-                <p><strong>Grade:</strong> <span class="highlight">A</span></p>
-              </div>
-              <p>Common Amenities for Tenants</p>
-              <ul class="amenities">
-                <li><span>🏥</span> Medical Room</li>
-                <li><span>🏋️</span> Gym</li>
-                <li><span>🍴</span> Pantry Area</li>
-                <li><span>🎮</span> Leisure Zone</li>
-              </ul>
-            </div>
-          </div>
-          <div class="center-card">
-            <img src="images/space6.jpeg" alt="Aurobindo Galaxy" />
-            <div class="card-content">
-              <h2>Aurobindo Galaxy</h2>
-              <p>HITEC City, Hyderabad, Telangana</p>
-              <div class="info">
-                <p>
-                  <strong>Area:</strong>
-                  <span class="highlight">180000 sq. Ft</span>
-                </p>
-                <p><strong>Grade:</strong> <span class="highlight">B+</span></p>
-              </div>
-              <p>Common Amenities for Tenants</p>
-              <ul class="amenities">
-                <li><span>🏥</span> Medical Room</li>
-                <li><span>🏋️</span> Gym</li>
-                <li><span>🍴</span> Pantry Area</li>
-                <li><span>🎮</span> Leisure Zone</li>
-              </ul>
-            </div>
-          </div>
-          <div class="center-card">
-            <img src="images/space7.jpeg" alt="Western Aqua" />
-            <div class="card-content">
-              <h2>Western Aqua</h2>
-              <p>Whitefields, HITEC City</p>
-              <div class="info">
-                <p>
-                  <strong>Area:</strong>
-                  <span class="highlight">251317 sq. Ft</span>
-                </p>
-                <p><strong>Grade:</strong> <span class="highlight">A</span></p>
-              </div>
-              <p>Common Amenities for Tenants</p>
-              <ul class="amenities">
-                <li><span>🏥</span> Medical Room</li>
-                <li><span>🏋️</span> Gym</li>
-                <li><span>🍴</span> Pantry Area</li>
-                <li><span>🎮</span> Leisure Zone</li>
-              </ul>
-            </div>
-          </div>
-          <div class="center-card">
-            <img src="images/space8.jpeg" alt="Aurobindo Galaxy" />
-            <div class="card-content">
-              <h2>Aurobindo Galaxy</h2>
-              <p>HITEC City, Hyderabad, Telangana</p>
-              <div class="info">
-                <p>
-                  <strong>Area:</strong>
-                  <span class="highlight">180000 sq. Ft</span>
-                </p>
-                <p><strong>Grade:</strong> <span class="highlight">B</span></p>
-              </div>
-              <p>Common Amenities for Tenants</p>
-              <ul class="amenities">
-                <li><span>🏥</span> Medical Room</li>
-                <li><span>🏋️</span> Gym</li>
-                <li><span>🍴</span> Pantry Area</li>
-                <li><span>🎮</span> Leisure Zone</li>
-              </ul>
-            </div>
-          </div>
+          ${spaceHTML}
         </div>
       </section>
 `;
+  } catch (error) {
+    // Handle errors
+    mainContent.innerHTML = `<p>Error loading spaces: ${error.message}</p>`;
+    console.error("Error fetching spaces:", error);
+  }
 }
 
 const aboutUsButton = document.getElementById("aboutUsBtn");
